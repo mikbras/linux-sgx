@@ -125,6 +125,28 @@ void* COMM_API enclave_create(
     COMM_IN size_t info_size,
     COMM_OUT_OPT uint32_t* enclave_error);
 
+/* enclave_create_0_base()
+ * Parameters:
+ *      base_address [in, optional] - An optional preferred base address for the enclave.
+ *      virtual_size [in] - The virtual address range of the enclave in bytes.
+ *      initial_commit[in] - The amount of physical memory to reserve for the initial load of the enclave in bytes.
+ *      type [in] - The architecture type of the enclave that you want to create.
+ *      info [in] - A pointer to the architecture-specific information to use to create the enclave.
+ *      info_size [in] - The length of the structure that the info parameter points to, in bytes.
+ *      enclave_error [out, optional] - An optional pointer to a variable that receives an enclave error code.
+ * Return Value:
+ *      If the function succeeds, the return value is the base address of the created enclave.
+ *      If the function fails, the return value is NULL. The extended error information will be in the enclave_error parameter if used.
+*/
+void* COMM_API enclave_create_0_base(
+    COMM_IN_OPT void* base_address,
+    COMM_IN size_t virtual_size,
+    COMM_IN size_t initial_commit,
+    COMM_IN uint32_t type,
+    COMM_IN const void* info,
+    COMM_IN size_t info_size,
+    COMM_OUT_OPT uint32_t* enclave_error);
+
 /* enclave_load_data()
  * Parameters:
  *      target_address [in] - The address in the enclave where you want to load the data.

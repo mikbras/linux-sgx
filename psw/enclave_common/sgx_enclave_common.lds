@@ -1,6 +1,7 @@
 {
 global:
     enclave_create;
+    enclave_create_0_base;
     enclave_load_data;
     enclave_initialize;
     enclave_delete;
