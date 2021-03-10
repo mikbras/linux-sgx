@@ -627,11 +627,11 @@ extern "C" void* COMM_API enclave_create_0_base(
     
     if(s_driver_type == SGX_DRIVER_IN_KERNEL)
     {
-        enclave_base = mmap(base_address, enclave_size, PROT_NONE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+        enclave_base = mmap(base_address, enclave_size, PROT_NONE, MAP_FIXED | MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
     }
     else 
     {
-        enclave_base = mmap(base_address, enclave_size, PROT_NONE, MAP_SHARED, hdevice_temp, 0);
+        enclave_base = mmap(base_address, enclave_size, PROT_NONE, MAP_FIXED | MAP_SHARED, hdevice_temp, 0);
     }
     
     if (enclave_base == MAP_FAILED) {
@@ -646,7 +646,7 @@ extern "C" void* COMM_API enclave_create_0_base(
     }
 
     if (enclave_base != base_address) {
-        SE_TRACE(SE_TRACE_WARNING, "\ncreate enclave 0-base: failed to reserve the required addr\n"); 
+        SE_TRACE(SE_TRACE_WARNING, "\ncreate enclave 0-base: failed to reserve the required addr, request=%d, returned=%d\n",base_address, enclave_base ); 
         int ret = munmap(enclave_base, enclave_size);
         if(ret == -1)
         {
